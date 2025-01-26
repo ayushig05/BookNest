@@ -8,12 +8,17 @@ const order = new mongoose.Schema(
     },
     book: {
       type: mongoose.Types.ObjectId,
-      ref: "books",
+      ref: "book",
     },
     status: {
       type: String,
       default: "Order Placed",
-      enum: ["Order Placed", "Out for Delivery, Delivered, Canceled"],
+      enum: [
+        "Order Placed", 
+        "Out for Delivery", 
+        "Delivered", 
+        "Canceled"
+      ],
     },
   },
   { timestamps: true }

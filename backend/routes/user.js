@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post("/sign-up", async (req, res) => {
   try {
-    const { username, email, password, address } = req.body;
+    const { username, email, password, address, role } = req.body;
     if (username.length < 6) {
       return res
         .status(400)
@@ -37,11 +37,18 @@ router.post("/sign-up", async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // if(!role || (role !== "admin" && role !== "user")) {
+    //   return res
+    //     .status(400)
+    //     .json({ message: "Invalid role provided" });
+    // }
+
     const newUser = new User({
       username,
       email,
       password: hashedPassword,
       address,
+      role,
     });
     await newUser.save();
     return res
@@ -55,7 +62,7 @@ router.post("/sign-up", async (req, res) => {
 });
 
 
-router.post("/sign-in", async (req, res) => {
+router.post("/log-in", async (req, res) => {
   try {
     const { username, password } = req.body;
     const existingUser = await User.findOne({ username });

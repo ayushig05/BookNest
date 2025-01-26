@@ -16,6 +16,20 @@ router.post("/add-book", authenticateToken, async (req, res) => {
         .json({ message: "You are not having access to perform admin access" });
     }
 
+    const existingBook = await Book.findOne({ 
+        url: req.body.url,
+        title: req.body.title,
+        author: req.body.author,
+        price: req.body.price,
+        description: req.body.description,
+        language: req.body.language, 
+    });
+    if (existingBook) {
+        return res
+          .status(400)
+          .json({ message: "Book already exists" });
+    }
+    
     const book = new Book({
       url: req.body.url,
       title: req.body.title,

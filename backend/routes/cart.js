@@ -56,50 +56,41 @@ router.put("/add-book-to-cart", authenticateToken, async (req, res) => {
 });
 
 
-router.put("/remove-book-from-cart", authenticateToken,async (req, res) => {
-    try {
-      const { bookid, id } = req.headers;
-      if (!bookid || !id) {
-        return res
-            .status(400)
-            .json({ message: "bookid and id are required" });
-      }
+router.put("/remove-from-cart/:bookid", authenticateToken, async (req, res) => {
+  try {
+    const { bookid } = req.params;
+    const { id } = req.headers;
 
-      if (!mongoose.Types.ObjectId.isValid(bookid)) {
-        return res
-            .status(400)
-            .json({ message: "Invalid book ID" });
-      }
-
-      const userData = await User.findById(id);
-      if (!userData) {
-        return res
-            .status(404)
-            .json({ message: "User not found" });
-      }
-
-      const isBookInCart = userData.cart.some((cart) =>
-        cart.equals(new mongoose.Types.ObjectId(bookid))
-      );
-      if (!isBookInCart) {
-        return res
-          .status(404)
-          .json({ message: "Book not found in cart" });
-      }
-      userData.cart.pull(new mongoose.Types.ObjectId(bookid));
-      await userData.save();
+    if (!id || !bookid) {
       return res
-        .status(200)
-        .json({ message: "Book removed from cart" });
-    } catch (error) {
-      console.error("Error removing book from cart:", error);
-      res
-        .status(500)
-        .json({ message: "Internal Server Error" });
+        .status(400)
+        .json({ message: "User ID and Book ID are required" });
     }
-  }
-);
 
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { $pull: { cart: bookid } },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return res
+        .status(404)
+        .json({ message: "User not found" });
+    }
+
+    return res.json({
+      status: "Success",
+      message: "Book removed from cart",
+      user: updatedUser,
+    });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ message: "An error occurred" });
+  }
+});
 
 router.get("/get-cart-book", authenticateToken, async (req, res) => {
     try {
