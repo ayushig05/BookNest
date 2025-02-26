@@ -120,7 +120,7 @@ const Signup = () => {
           </div>
           <div className="mt-4">
             <button
-              className="w-full bg-blue-500 text-white font-semibold py-2 rounded hover:bg-white hover:text-blue-500"
+              className="w-full bg-blue-500 text-white font-semibold py-2 rounded hover:bg-white hover:text-blue-500 cursor-pointer"
               onClick={submit}
             >
               Register
@@ -129,7 +129,7 @@ const Signup = () => {
           <p className="flex mt-4 items-center justify-center text-zinc-300 font-semibold">
             Or
           </p>
-          <p className="flex mt-4 items-center justify-center text-zinc-500 font-semibold">
+          <p className="flex mt-4 items-center justify-center text-zinc-500 font-semibold cursor-pointer">
             Already have an account? &nbsp;
             <Link 
               to="/login" 

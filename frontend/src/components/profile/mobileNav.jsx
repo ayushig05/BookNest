@@ -8,37 +8,37 @@ const MobileNav = () => {
   return (
     <>
       {role === "user" ? (
-        <div className="w-full flex lg:hidden items-center justify-between mt-4">
+        <div className="w-full flex lg:hidden items-center justify-between mt-4 gap-5">
           <Link
             to="/profile"
-            className="text-zinc-100 font-semibold w-full text-center hover:bg-zinc-900 rounded transition-all duration-300"
+            className="text-zinc-100 font-semibold w-full text-center g-yellow-700 hover:bg-yellow-900 rounded transition-all duration-300"
           >
             Favourites
           </Link>
           <Link
             to="/profile/orderHistory"
-            className="text-zinc-100 font-semibold w-full text-center hover:bg-zinc-900 rounded transition-all duration-300"
+            className="text-zinc-100 font-semibold w-full text-center g-yellow-700 hover:bg-yellow-900 rounded transition-all duration-300"
           >
             Order History
           </Link>
           <Link
             to="/profile/settings"
-            className="text-zinc-100 font-semibold w-full text-center hover:bg-zinc-900 rounded transition-all duration-300"
+            className="text-zinc-100 font-semibold w-full text-center g-yellow-700 hover:bg-yellow-900 rounded transition-all duration-300"
           >
             Settings
           </Link>
         </div>
       ) :  (
-        <div className="w-full flex lg:hidden items-center justify-between mt-4">
+        <div className="w-full flex lg:hidden items-center justify-between mt-4 gap-5">
           <Link
             to="/profile"
-            className="text-zinc-100 font-semibold w-full text-center hover:bg-zinc-900 rounded transition-all duration-300"
+            className="text-zinc-100 font-semibold w-full text-center bg-yellow-700 hover:bg-yellow-900 rounded transition-all duration-300"
           >
             All Orders
           </Link>
           <Link
             to="/profile/add-book"
-            className="text-zinc-100 font-semibold w-full text-center hover:bg-zinc-900 rounded transition-all duration-300"
+            className="text-zinc-100 font-semibold w-full text-center bg-yellow-700 hover:bg-yellow-900 rounded transition-all duration-300"
           >
             Add Book
           </Link>

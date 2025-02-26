@@ -64,10 +64,10 @@ const AllOrders = () => {
         </div>
       ) : (
         <div className="h-[100%] p-0 md:p-4 text-zinc-100">
-          <h1 className="text-3xl md:text-5xl font-semibold text-zinc-500 mb-8">
+          <h1 className="text-3xl md:text-5xl font-semibold text-yellow-700 mb-8">
             All Orders
           </h1>
-          <div className="mt-4 bg-zinc-600 w-full rounded py-2 px-4 flex gap-2">
+          <div className="mt-4 bg-yellow-900 w-full rounded py-2 px-4 flex gap-2">
             <div className="w-[3%]">
               <h1 className="text-center">
                 Sr.
@@ -101,7 +101,7 @@ const AllOrders = () => {
           </div>
           {allOrders.map((items, index) => (
             <div
-              className="bg-zinc-500 w-full rounded py-2 px-4 flex gap-2 hover:bg-zinc-800 hover:cursor-pointer transition-all duration-300"
+              className="bg-yellow-700 w-full rounded py-2 px-4 flex gap-2 hover:bg-yellow-900 hover:cursor-pointer transition-all duration-300"
               key={index}
             >
               <div className="w-[3%]">
@@ -112,7 +112,7 @@ const AllOrders = () => {
               <div className="w-[40%] md:w-[22%]">
                 <Link
                   to={`/view-book-details/${items.book._id}`}
-                  className="hover:text-blue-300"
+                  className="hover:text-black"
                 >
                   {items.book.title}
                 </Link>

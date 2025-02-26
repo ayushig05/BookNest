@@ -87,7 +87,7 @@ const ViewBookDetails = () => {
               {isLoggedIn === true && role === "user" ? (
                 <div className="flex flex-row md:flex-col lg:flex-col mt-8 lg:mt-0 items-center justify-between md:justify-start lg:justify-start">
                   <button
-                    className="bg-white rounded md:rounded-full lg:rounded-full text-3xl p-3 text-red-500 flex items-center justify-center"
+                    className="bg-white rounded md:rounded-full lg:rounded-full text-3xl p-3 text-red-500 flex items-center justify-center cursor-pointer"
                     onClick={handleFavourite}
                   >
                     <FaHeart />
@@ -96,7 +96,7 @@ const ViewBookDetails = () => {
                     </span>
                   </button>
                   <button
-                    className="bg-blue-500 rounded md:rounded-full lg:rounded-full text-3xl p-3 mt-0 md:mt-8 lg:mt-8 text-white flex items-center justify-center"
+                    className="bg-blue-500 rounded md:rounded-full lg:rounded-full text-3xl p-3 mt-0 md:mt-8 lg:mt-8 text-white flex items-center justify-center cursor-pointer"
                     onClick={handleCart}
                   >
                     <FaShoppingCart />
@@ -117,7 +117,7 @@ const ViewBookDetails = () => {
                     </span>
                   </Link>
                   <button
-                    className="bg-white rounded md:rounded-full lg:rounded-full text-3xl p-3 mt-0 md:mt-8 lg:mt-8 text-red-500 flex items-center justify-center"
+                    className="bg-white rounded md:rounded-full lg:rounded-full text-3xl p-3 mt-0 md:mt-8 lg:mt-8 text-red-500 flex items-center justify-center cursor-pointer"
                     onClick={deleteBook}
                   >
                     <MdDelete />
@@ -130,7 +130,7 @@ const ViewBookDetails = () => {
             </div>
           </div>
           <div className="p-4 w-full md:w-3/6 lg:w-3/6">
-            <h1 className="text-4xl text-zinc-800 font-semibold">
+            <h1 className="text-4xl text-yellow-800 font-semibold">
               {data?.title}
             </h1>
             <p className="text-zinc-800 mt-1">
@@ -143,7 +143,7 @@ const ViewBookDetails = () => {
               <GrLanguage className="me-3" />
               {data?.language}
             </p>
-            <p className="mt-4 text-zinc-800 text-3xl font-semibold">
+            <p className="mt-4 text-yellow-800 text-3xl font-semibold">
               Price: ₹ {data?.price}
             </p>
           </div>

@@ -56,14 +56,14 @@ const AddBook = () => {
 
   return (
     <div className="h-[100%] p-0 md:p-4">
-      <h1 className="text-3xl font-semibold text-blue-500 mb-7">
+      <h1 className="text-3xl font-semibold text-yellow-700 mb-7">
         Add Book
       </h1>
-      <div className="p-4 bg-zinc-600 rounded">
+      <div className="p-4 border-2 border-zinc-600 rounded">
         <div className="mt-2">
           <label 
             htmlFor="" 
-            className="text-zinc-400"
+            className="text-zinc-900"
           >
             Image
           </label>
@@ -80,7 +80,7 @@ const AddBook = () => {
         <div className="mt-2">
           <label 
             htmlFor="" 
-            className="text-zinc-400"
+            className="text-zinc-900"
           >
             Title of the Book
           </label>
@@ -97,7 +97,7 @@ const AddBook = () => {
         <div className="mt-2">
           <label 
             htmlFor="" 
-            className="text-zinc-400"
+            className="text-zinc-900"
           >
             Author of the Book
           </label>
@@ -115,7 +115,7 @@ const AddBook = () => {
           <div className="w-3/6">
             <label 
               htmlFor="" 
-              className="text-zinc-400"
+              className="text-zinc-900"
             >
               Language
             </label>
@@ -132,7 +132,7 @@ const AddBook = () => {
           <div className="w-3/6">
             <label 
               htmlFor="" 
-              className="text-zinc-400"
+              className="text-zinc-900"
             >
               Price
             </label>
@@ -150,7 +150,7 @@ const AddBook = () => {
         <div className="mt-2">
           <label 
             htmlFor="" 
-            className="text-zinc-400"
+            className="text-zinc-900"
           >
             Description
           </label>
@@ -165,7 +165,7 @@ const AddBook = () => {
           />
         </div>
         <button
-          className="mt-4 px-3 bg-blue-400 text-white font-semibold py-2 rounded hover:bg-blue-600 transition-all duration-300"
+          className="mt-4 px-3 bg-yellow-700 text-white font-semibold py-2 rounded hover:bg-yellow-950 transition-all duration-300"
           onClick={submit}
         >
           Add Book

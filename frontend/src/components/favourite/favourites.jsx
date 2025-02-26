@@ -1,8 +1,5 @@
 import React from "react";
-import { 
-  useEffect, 
-  useState 
-} from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import BookCard from "../book/bookCard";
 import Loader from "../loader";
@@ -36,25 +33,21 @@ const Favourites = () => {
       ) : favouriteBooks.length === 0 ? (
         <div className="text-5xl font-semibold h-[100%] text-zinc-500 flex flex-col items-center justify-center w-full">
           No Favourite Books
-          <img 
-            src={Star} 
-            alt="star" 
-            className="h-[20vh] my-8"
-            />
+          <img src={Star} alt="star" className="h-[20vh] my-8" />
         </div>
       ) : (
-        <div className="grid grid-cols-4 gap-4">
-          {favouriteBooks &&
-            favouriteBooks.map((items, index) => (
-              <div 
-                key={index}
-              >
-                <BookCard 
-                  data={items} 
-                  favourite={true} 
-                />
-              </div>
-            ))}
+        <div>
+          <h1 className="text-2xl md:text-5xl font-semibold text-yellow-700 mb-8">
+            Favourites
+          </h1>
+          <div className="grid grid-cols-4 gap-4">
+            {favouriteBooks &&
+              favouriteBooks.map((items, index) => (
+                <div key={index}>
+                  <BookCard data={items} favourite={true} />
+                </div>
+              ))}
+          </div>
         </div>
       )}
     </>
