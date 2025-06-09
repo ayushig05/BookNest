@@ -55,12 +55,11 @@ const Navbar = () => {
         <div className="block md:flex items-center gap-4">
           <div className="hidden md:flex gap-4">
             {links.map((items, index) => (
-              <div className="flex items-center">
+              <div className="flex items-center" key={index}>
                 {items.title === "Profile" || items.title === "Admin Profile" ? (
                   <Link
                     to={items.link}
                     className="px-4 py-1 border border-blue-500 rounded hover:text-zinc-800 hover:bg-blue-500 transition-all duration-300"
-                    key={index}
                   >
                     {items.title}
                   </Link>
@@ -68,7 +67,6 @@ const Navbar = () => {
                   <Link
                     to={items.link}
                     className="hover:text-blue-500 transition-all duration-300"
-                    key={index}
                   >
                     {items.title}
                   </Link>

@@ -1,16 +1,10 @@
 import React from "react";
-import { 
-  useState, 
-  useEffect 
-} from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Loader from "../loader";
 import SeeUserData from "../profile/seeUserData";
-import { 
-  FaUserCircle, 
-  FaCheck 
-} from "react-icons/fa";
+import { FaUserCircle, FaCheck } from "react-icons/fa";
 import { IoOpenOutline } from "react-icons/io5";
 
 const AllOrders = () => {
@@ -69,29 +63,19 @@ const AllOrders = () => {
           </h1>
           <div className="mt-4 bg-yellow-900 w-full rounded py-2 px-4 flex gap-2">
             <div className="w-[3%]">
-              <h1 className="text-center">
-                Sr.
-              </h1>
+              <h1 className="text-center">Sr.</h1>
             </div>
             <div className="w-[40%] md:w-[22%]">
-              <h1>
-                Books
-              </h1>
+              <h1>Books</h1>
             </div>
             <div className="w-0 md:w-[45%] hidden md:block">
-              <h1>
-                Description
-              </h1>
+              <h1>Description</h1>
             </div>
             <div className="w-[17%] md:w-[9%]">
-              <h1>
-                Price
-              </h1>
+              <h1>Price</h1>
             </div>
             <div className="w-[30%] md:w-[16%]">
-              <h1>
-                Status
-              </h1>
+              <h1>Status</h1>
             </div>
             <div className="w-[10%] md:w-[5%] mt-1">
               <h1>
@@ -105,27 +89,25 @@ const AllOrders = () => {
               key={index}
             >
               <div className="w-[3%]">
-                <h1 className="text-center">
-                  {index + 1}
-                </h1>
+                <h1 className="text-center">{index + 1}</h1>
               </div>
               <div className="w-[40%] md:w-[22%]">
-                <Link
-                  to={`/view-book-details/${items.book._id}`}
-                  className="hover:text-black"
-                >
-                  {items.book.title}
-                </Link>
+                {items.book ? (
+                  <Link
+                    to={`/view-book-details/${items.book._id}`}
+                    className="hover:text-black"
+                  >
+                    {items.book.title}
+                  </Link>
+                ) : (
+                  <span className="text-red-500">Book not available</span>
+                )}
               </div>
               <div className="w-0 md:w-[45%] hidden md:block">
-                <h1>
-                  {items.book.description.slice(0, 50)}...
-                </h1>
+                <h1>{items.book ? `${items.book.description.slice(0, 50)}...` : "No description"}...</h1>
               </div>
               <div className="w-[17%] md:w-[9%]">
-                <h1>
-                  ₹ {items.book.price}
-                </h1>
+                <h1>₹ {items.book ? items.book.price : "N/A"}</h1>
               </div>
               <div className="w-[30%] md:w-[16%]">
                 <button
@@ -135,17 +117,11 @@ const AllOrders = () => {
                   }}
                 >
                   {items.status === "Order Placed" ? (
-                    <div className="text-green-500">
-                      {items.status}
-                    </div>
+                    <div className="text-green-500">{items.status}</div>
                   ) : items.status === "Canceled" ? (
-                    <div className="text-red-500">
-                      {items.status}
-                    </div>
+                    <div className="text-red-500">{items.status}</div>
                   ) : (
-                    <div className="text-yellow-500">
-                      {items.status}
-                    </div>
+                    <div className="text-yellow-500">{items.status}</div>
                   )}
                 </button>
                 {options === index && (
@@ -161,10 +137,7 @@ const AllOrders = () => {
                         "Delivered",
                         "Canceled",
                       ].map((status, id) => (
-                        <option 
-                          key={id} 
-                          value={status}
-                        >
+                        <option key={id} value={status}>
                           {status}
                         </option>
                       ))}
