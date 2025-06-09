@@ -49,7 +49,7 @@ const Navbar = () => {
         <Link to="/" className="flex items-center">
           <img className="h-10 me-4 rounded" src={Logo} alt="logo" />
           <h1 className="text-2xl font-semibold">
-            BookStore
+            BookNest
           </h1>
         </Link>
         <div className="block md:flex items-center gap-4">
