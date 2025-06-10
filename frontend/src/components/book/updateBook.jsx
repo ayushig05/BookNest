@@ -8,6 +8,7 @@ import {
   useNavigate, 
   useParams 
 } from "react-router-dom";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const UpdateBook = () => {
   const { id } = useParams();
@@ -45,7 +46,7 @@ const UpdateBook = () => {
         alert("All fields are required");
       } else {
         const response = await axios.put(
-          "http://localhost:3000/api/v1/update-book",
+          `${backendUrl}/api/v1/update-book`,
           data,
           { headers }
         );
@@ -68,7 +69,7 @@ const UpdateBook = () => {
   useEffect(() => {
     const fetch = async () => {
       const response = await axios.get(
-        `http://localhost:3000/api/v1/get-book-by-id/${id}`
+        `${backendUrl}/api/v1/get-book-by-id/${id}`
       );
       setData(response.data.data);
     };

@@ -7,6 +7,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Loader from "../loader";
 import Order from "../../assets/order.avif";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const OrderHistory = () => {
   const [orderHistory, setOrderHistory] = useState();
@@ -19,7 +20,7 @@ const OrderHistory = () => {
   useEffect(() => {
     const fetch = async () => {
       const response = await axios.get(
-        "http://localhost:3000/api/v1/get-order-history",
+        `${backendUrl}/api/v1/get-order-history`,
         { headers }
       );
       setOrderHistory(response.data.data);

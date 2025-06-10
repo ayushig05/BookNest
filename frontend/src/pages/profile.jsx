@@ -9,6 +9,7 @@ import { Outlet } from "react-router-dom";
 import Loader from "../components/loader";
 import Sidebar from "../components/profile/sidebar";
 import MobileNav from "../components/profile/mobileNav";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const Profile = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -21,7 +22,7 @@ const Profile = () => {
   useEffect(() => {
     const fetch = async () => {
       const response = await axios.get(
-        "http://localhost:3000/api/v1/get-user-information",
+        `${backendUrl}/api/v1/get-user-information`,
         { headers }
       );
       setProfile(response.data);

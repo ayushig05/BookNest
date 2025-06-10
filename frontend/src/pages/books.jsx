@@ -6,6 +6,7 @@ import {
 import axios from "axios";
 import Loader from "../components/loader";
 import BookCard from "../components/book/bookCard";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const Books = () => {
   const [data, setData] = useState();
@@ -13,7 +14,7 @@ const Books = () => {
   useEffect(() => {
     const fetch = async () => {
       const response = await axios.get(
-        "http://localhost:3000/api/v1/get-all-books"
+        `${backendUrl}/api/v1/get-all-books`
       );
       setData(response.data.data);
     };

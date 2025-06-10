@@ -6,6 +6,7 @@ import Loader from "../loader";
 import SeeUserData from "../profile/seeUserData";
 import { FaUserCircle, FaCheck } from "react-icons/fa";
 import { IoOpenOutline } from "react-icons/io5";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const AllOrders = () => {
   const [allOrders, setAllOrders] = useState([]);
@@ -22,7 +23,7 @@ const AllOrders = () => {
   useEffect(() => {
     const fetch = async () => {
       const response = await axios.get(
-        "http://localhost:3000/api/v1/get-all-orders",
+        `${backendUrl}/api/v1/get-all-orders`,
         { headers }
       );
       setAllOrders(response.data.data);
@@ -38,7 +39,7 @@ const AllOrders = () => {
   const submitChanges = async (index) => {
     const id = allOrders[index]._id;
     const response = await axios.put(
-      `http://localhost:3000/api/v1/update-status/${id}`,
+      `${backendUrl}/api/v1/update-status/${id}`,
       values,
       { headers }
     );

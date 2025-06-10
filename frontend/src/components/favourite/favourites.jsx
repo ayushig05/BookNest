@@ -4,6 +4,7 @@ import axios from "axios";
 import BookCard from "../book/bookCard";
 import Loader from "../loader";
 import Star from "../../assets/favourite.webp";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const Favourites = () => {
   const [favouriteBooks, setFavouriteBooks] = useState();
@@ -16,7 +17,7 @@ const Favourites = () => {
   useEffect(() => {
     const fetch = async () => {
       const response = await axios.get(
-        "http://localhost:3000/api/v1/get-favourite-book",
+        `${backendUrl}/api/v1/get-favourite-book`,
         { headers }
       );
       setFavouriteBooks(response.data.data);

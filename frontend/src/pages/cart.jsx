@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Loader from "../components/loader";
 import CartImage from "../assets/cart.png";
 import { AiFillDelete } from "react-icons/ai";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const Cart = () => {
   const [cart, setCart] = useState([]);
@@ -22,7 +23,7 @@ const Cart = () => {
   useEffect(() => {
     const fetch = async () => {
       const response = await axios.get(
-        "http://localhost:3000/api/v1/get-cart-book",
+        `${backendUrl}/api/v1/get-cart-book`,
         { headers }
       );
       setCart(response.data.data);
@@ -32,7 +33,7 @@ const Cart = () => {
 
   const deleteItem = async (bookid) => {
     const response = await axios.put(
-      `http://localhost:3000/api/v1//remove-from-cart/${bookid}`,
+      `${backendUrl}/api/v1//remove-from-cart/${bookid}`,
       {},
       { headers }
     );
@@ -53,7 +54,7 @@ const Cart = () => {
   const placeOrder = async () => {
     try {
         const response = await axios.post(
-          "http://localhost:3000/api/v1/place-order",
+          `${backendUrl}/api/v1/place-order`,
           { order: cart },
           { headers }
         );

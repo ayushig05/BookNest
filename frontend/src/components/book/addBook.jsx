@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const AddBook = () => {
   const [data, setData] = useState({
@@ -35,7 +36,7 @@ const AddBook = () => {
         alert("All fields are required");
       } else {
         const response = await axios.post(
-          "http://localhost:3000/api/v1/add-book",
+          `${backendUrl}/api/v1/add-book`,
           data,
           { headers }
         );

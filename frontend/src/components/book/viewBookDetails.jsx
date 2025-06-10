@@ -16,6 +16,7 @@ import { FaHeart } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const ViewBookDetails = () => {
   const { id } = useParams();
@@ -27,7 +28,7 @@ const ViewBookDetails = () => {
   useEffect(() => {
     const fetch = async () => {
       const response = await axios.get(
-        `http://localhost:3000/api/v1/get-book-by-id/${id}`
+        `${backendUrl}/api/v1/get-book-by-id/${id}`
       );
       setData(response.data.data);
     };
@@ -42,7 +43,7 @@ const ViewBookDetails = () => {
 
   const handleFavourite = async () => {
     const response = await axios.put(
-      "http://localhost:3000/api/v1/add-book-to-favourite",
+      `${backendUrl}/api/v1/add-book-to-favourite`,
       {},
       { headers }
     );
@@ -51,7 +52,7 @@ const ViewBookDetails = () => {
 
   const handleCart = async () => {
     const response = await axios.put(
-      "http://localhost:3000/api/v1/add-book-to-cart",
+      `${backendUrl}/api/v1/add-book-to-cart`,
       {},
       { headers }
     );
@@ -60,7 +61,7 @@ const ViewBookDetails = () => {
 
   const deleteBook = async () => {
     const response = await axios.delete(
-      "http://localhost:3000/api/v1/delete-book",
+      `${backendUrl}/api/v1/delete-book`,
       { headers }
     );
     alert(response.data.message);

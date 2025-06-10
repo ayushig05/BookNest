@@ -5,6 +5,7 @@ import {
 } from "react";
 import axios from "axios";
 import Loader from "../loader";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const Settings = () => {
   const [value, setValue] = useState();
@@ -18,7 +19,7 @@ const Settings = () => {
   useEffect(() => {
     const fetch = async () => {
       const response = await axios.get(
-        "http://localhost:3000/api/v1/get-user-information",
+        `${backendUrl}/api/v1/get-user-information`,
         { headers }
       );
       setProfileData(response.data);
@@ -34,7 +35,7 @@ const Settings = () => {
 
   const submitAddress = async () => {
     const response = await axios.put(
-      "http://localhost:3000/api/v1/update-address",
+      `${backendUrl}}/api/v1/update-address`,
       value,
       { headers }
     );

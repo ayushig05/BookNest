@@ -7,6 +7,7 @@ import {
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const Login = () => {
   const [values, setValues] = useState({
@@ -31,7 +32,7 @@ const Login = () => {
         alert("All fields are required");
       } else {
         const response = await axios.post(
-          "http://localhost:3000/api/v1/log-in",
+          `${backendUrl}/api/v1/log-in`,
           values
         );
         dispatch(authActions.login());
@@ -89,7 +90,7 @@ const Login = () => {
           </div>
           <div className="mt-4">
             <button
-              className="w-full bg-blue-400 text-white font-semibold py-2 rounded hover:bg-white hover:text-blue-500 cursor-pointer"
+              className="w-full bg-blue-300 text-white font-semibold py-2 rounded hover:bg-blue-500 hover:text-white cursor-pointer"
               onClick={submit}
             >
               LogIn

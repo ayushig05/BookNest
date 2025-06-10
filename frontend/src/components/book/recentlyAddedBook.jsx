@@ -6,6 +6,7 @@ import {
 import axios from "axios";
 import BookCard from "./bookCard";
 import Loader from "../loader";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const RecentlyAddedBook = () => {
   const [data, setData] = useState();
@@ -13,7 +14,7 @@ const RecentlyAddedBook = () => {
   useEffect(() => {
     const fetch = async () => {
       const response = await axios.get(
-        "http://localhost:3000/api/v1/get-recent-books"
+        `${backendUrl}/api/v1/get-recent-books`
       );
       setData(response.data.data);
     };
