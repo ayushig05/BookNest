@@ -1,12 +1,6 @@
 import React from "react";
-import { 
-  Link, 
-  useNavigate 
-} from "react-router-dom";
-import { 
-  useDispatch, 
-  useSelector 
-} from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/auth";
 import { FaArrowRightFromBracket } from "react-icons/fa6";
 
@@ -15,12 +9,21 @@ const Sidebar = ({ data }) => {
   const navigate = useNavigate();
   const role = useSelector((state) => state.auth.role);
 
+  const handleLogout = () => {
+    dispatch(authActions.logout());
+    dispatch(authActions.changeRole("user"));
+    localStorage.removeItem("id");
+    localStorage.removeItem("role");
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
   return (
     <div className="bg-yellow-700 p-4 rounded flex flex-col items-between justify-between h-auto lg:h-[100%]">
       <div className="flex items-center flex-col justify-center">
-        <img 
-          src={data.avatar} 
-          className="h-[12vh]" 
+        <img
+          src={data.avatar}
+          className="h-[12vh] rounded-full"
           alt="avatar"
         />
         <p className="mt-3 text-xl text-zinc-100 font-semibold">
@@ -31,6 +34,7 @@ const Sidebar = ({ data }) => {
         </p>
         <div className="w-full mt-4 h-[1px] bg-yellow-950 hidden lg:block"></div>
       </div>
+
       {role === "user" ? (
         <div className="w-full flex-col items-center justify-center hidden lg:flex">
           <Link
@@ -68,21 +72,13 @@ const Sidebar = ({ data }) => {
           </Link>
         </div>
       )}
+
       <button
         className="bg-zinc-900 w-3/6 lg:w-full mt-4 lg:mt-0 text-white font-semibold flex items-center justify-center py-2 rounded hover:bg-white hover:text-zinc-900 transition-all duration-300 cursor-pointer"
-        onClick={() => {
-          dispatch(authActions.logout());
-          dispatch(authActions.changeRole("user"));
-          localStorage.clear("id");
-          localStorage.clear("role");
-          localStorage.clear("token");
-          navigate("/");
-        }}
+        onClick={handleLogout}
       >
         Log Out
-        <FaArrowRightFromBracket 
-          className="ml-4" 
-        />
+        <FaArrowRightFromBracket className="ml-4" />
       </button>
     </div>
   );

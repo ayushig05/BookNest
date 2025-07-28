@@ -1,17 +1,16 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Loader from "../loader";
 import SeeUserData from "../profile/seeUserData";
 import { FaUserCircle, FaCheck } from "react-icons/fa";
 import { IoOpenOutline } from "react-icons/io5";
+
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const AllOrders = () => {
   const [allOrders, setAllOrders] = useState([]);
   const [options, setOptions] = useState(-1);
-  const [values, setValues] = useState({ status: "" });
   const [userDiv, setUserDiv] = useState("hidden");
   const [userDivData, setUserDivData] = useState();
 
@@ -31,23 +30,17 @@ const AllOrders = () => {
     fetch();
   }, []);
 
-  const change = (e) => {
-    const { name, value } = e.target;
-    setValues({ status: e.target.value });
-  };
-
-  const submitChanges = async (index) => {
+  const submitChanges = async (index, newStatus) => {
     const id = allOrders[index]._id;
     const response = await axios.put(
       `${backendUrl}/api/v1/update-status/${id}`,
-      values,
+      { status: newStatus },
       { headers }
     );
     alert(response.data.message);
     const updatedOrders = [...allOrders];
-    updatedOrders[index].status = values.status;
+    updatedOrders[index].status = newStatus;
     setAllOrders(updatedOrders);
-    setValues({ status: "" });
     setOptions(-1);
   };
 
@@ -62,6 +55,7 @@ const AllOrders = () => {
           <h1 className="text-3xl md:text-5xl font-semibold text-yellow-700 mb-8">
             All Orders
           </h1>
+
           <div className="mt-4 bg-yellow-900 w-full rounded py-2 px-4 flex gap-2">
             <div className="w-[3%]">
               <h1 className="text-center">Sr.</h1>
@@ -84,6 +78,7 @@ const AllOrders = () => {
               </h1>
             </div>
           </div>
+
           {allOrders.map((items, index) => (
             <div
               className="bg-yellow-700 w-full rounded py-2 px-4 flex gap-2 hover:bg-yellow-900 hover:cursor-pointer transition-all duration-300"
@@ -105,7 +100,11 @@ const AllOrders = () => {
                 )}
               </div>
               <div className="w-0 md:w-[45%] hidden md:block">
-                <h1>{items.book ? `${items.book.description.slice(0, 50)}...` : "No description"}...</h1>
+                <h1>
+                  {items.book
+                    ? `${items.book.description.slice(0, 50)}...`
+                    : "No description"}
+                </h1>
               </div>
               <div className="w-[17%] md:w-[9%]">
                 <h1>₹ {items.book ? items.book.price : "N/A"}</h1>
@@ -129,8 +128,8 @@ const AllOrders = () => {
                   <div className="mt-2 flex">
                     <select
                       className="bg-gray-800 text-white"
-                      value={values.status || items.status}
-                      onChange={(e) => change(e)}
+                      defaultValue={items.status}
+                      onChange={(e) => submitChanges(index, e.target.value)}
                     >
                       {[
                         "Order Placed",
@@ -145,7 +144,9 @@ const AllOrders = () => {
                     </select>
                     <button
                       className="text-green-500 hover:text-pink-600 mx-2"
-                      onClick={() => submitChanges(index)}
+                      onClick={() =>
+                        submitChanges(index, items.status)
+                      }
                     >
                       <FaCheck />
                     </button>
@@ -167,6 +168,7 @@ const AllOrders = () => {
           ))}
         </div>
       )}
+
       {userDivData && (
         <SeeUserData
           userDiv={userDiv}

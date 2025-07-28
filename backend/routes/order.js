@@ -2,11 +2,10 @@ const express = require("express");
 const User = require("../models/user");
 const Book = require("../models/book");
 const Order = require("../models/order");
-const { authenticateToken } = require("./userAuth");
+const { authenticateToken } = require("../middleware/userAuth");
 
 const router = express.Router();
 
-//only for user
 router.post("/place-order", authenticateToken, async (req, res) => {
     try {
         const { id } = req.headers;
@@ -75,8 +74,6 @@ router.get("/get-order-history", authenticateToken, async (req, res) => {
     }
 });
 
-
-//only for admin
 router.get("/get-all-orders", authenticateToken, async (req, res) => {
     try {
         const userData = await Order.find()

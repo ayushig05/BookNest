@@ -1,13 +1,6 @@
-import React from "react";
-import { useEffect } from "react";
-import { 
-  Routes, 
-  Route 
-} from "react-router-dom";
-import { 
-  useDispatch, 
-  useSelector 
-} from "react-redux";
+import React, { useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "./store/auth";
 import Home from "./pages/home";
 import Cart from "./pages/cart";
@@ -30,21 +23,20 @@ const App = () => {
   const role = useSelector((state) => state.auth.role);
 
   useEffect(() => {
-    if (
-      localStorage.getItem("id") &&
-      localStorage.getItem("role") &&
-      localStorage.getItem("token")
-    ) {
+    const id = localStorage.getItem("id");
+    const token = localStorage.getItem("token");
+    const storedRole = localStorage.getItem("role");
+    if (id && token && storedRole) {
       dispatch(authActions.login());
-      dispatch(authActions.changeRole(localStorage.getItem("role")));
+      dispatch(authActions.changeRole(storedRole));
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
       <Navbar />
       <Routes>
-        <Route exact path="/" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/books" element={<Books />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/profile" element={<Profile />}>
@@ -54,10 +46,10 @@ const App = () => {
             <Route index element={<AllOrders />} />
           )}
           {role === "admin" && (
-            <Route path="/profile/add-book" element={<AddBook />} />
+            <Route path="add-book" element={<AddBook />} />
           )}
-          <Route path="/profile/orderHistory" element={<OrderHistory />} />
-          <Route path="/profile/settings" element={<Settings />} />
+          <Route path="orderHistory" element={<OrderHistory />} />
+          <Route path="settings" element={<Settings />} />
         </Route>
         <Route path="/login" element={<LogIn />} />
         <Route path="/signup" element={<SignUp />} />

@@ -1,16 +1,13 @@
-import React from "react";
-import { 
-  useState, 
-  useEffect 
-} from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Loader from "../loader";
 import Order from "../../assets/order.avif";
+
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const OrderHistory = () => {
-  const [orderHistory, setOrderHistory] = useState();
+  const [orderHistory, setOrderHistory] = useState(null);
 
   const headers = {
     id: localStorage.getItem("id"),
@@ -19,116 +16,80 @@ const OrderHistory = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      const response = await axios.get(
-        `${backendUrl}/api/v1/get-order-history`,
-        { headers }
-      );
-      setOrderHistory(response.data.data);
+      try {
+        const response = await axios.get(
+          `${backendUrl}/api/v1/get-order-history`,
+          { headers }
+        );
+        setOrderHistory(response.data.data);
+      } catch (err) {
+        console.error("Failed to fetch order history:", err);
+        setOrderHistory([]);
+      }
     };
     fetch();
-  }, [orderHistory]);
+  }, []);
 
   return (
     <>
       {!orderHistory ? (
-        <div className="w-full h-[100%] flex items-center justify-center my-8">
+        <div className="w-full h-full flex items-center justify-center my-8">
           <Loader />
         </div>
       ) : orderHistory.length === 0 ? (
-        <div className="text-5xl font-semibold h-[100%] text-zinc-500 flex flex-col items-center justify-center w-full">
+        <div className="text-5xl font-semibold h-full text-zinc-500 flex flex-col items-center justify-center w-full">
           No Order History
-          <img 
-            src={Order} 
-            alt="Empty Cart" 
-            className="h-[20vh] mb-8" 
-          />
+          <img src={Order} alt="Empty Cart" className="h-[20vh] mb-8" />
         </div>
       ) : (
-        <div className="h-[100%] p-0 md:p-4 text-zinc-100">
+        <div className="h-full p-0 md:p-4 text-zinc-100">
           <h1 className="text-3xl md:text-5xl font-semibold text-yellow-700 mb-8">
             Your Order History
           </h1>
+
           <div className="mt-4 bg-yellow-800 w-full rounded py-2 px-4 flex gap-2">
-            <div className="w-[3%]">
-              <h1 className="text-center">
-                Sr.
-              </h1>
-            </div>
-            <div className="w-[22%]">
-              <h1 className="">
-                Books
-              </h1>
-            </div>
-            <div className="w-[45%]">
-              <h1 className="">
-                Description
-              </h1>
-            </div>
-            <div className="w-[9%]">
-              <h1 className="">
-                Price
-              </h1>
-            </div>
-            <div className="w-[16%]">
-              <h1 className="">
-                Status
-              </h1>
-            </div>
-            <div className="w-none md:w-[5%] hidden md:block">
-              <h1 className="">
-                Mode
-              </h1>
-            </div>
+            <div className="w-[3%] text-center">Sr.</div>
+            <div className="w-[22%]">Books</div>
+            <div className="w-[45%]">Description</div>
+            <div className="w-[9%]">Price</div>
+            <div className="w-[16%]">Status</div>
+            <div className="w-none md:w-[5%] hidden md:block">Mode</div>
           </div>
-          {orderHistory.map((items, index) => (
+
+          {orderHistory.map((item, index) => (
             <div
-              className="bg-yellow-700 w-full rounded py-2 px-4 flex gap-4 hover:bg-yellow-900 hover:cursor-pointer"
-              key={items.book._id}
+              key={item._id}
+              className="bg-yellow-700 w-full rounded py-2 px-4 flex gap-4 hover:bg-yellow-900 hover:cursor-pointer transition-all duration-300"
             >
-              <div className="w-[3%]">
-                <h1 className="text-center">
-                  {index + 1}
-                </h1>
-              </div>
+              <div className="w-[3%] text-center">{index + 1}</div>
+
               <div className="w-[22%]">
                 <Link
-                  to={`/view-book-details/${items.book._id}`}
+                  to={`/view-book-details/${item.book._id}`}
                   className="hover:text-black"
                 >
-                  {items.book.title}
+                  {item.book.title}
                 </Link>
               </div>
+
               <div className="w-[45%]">
-                <h1 className="">
-                  {items.book.description.slice(0, 50)}...
-                </h1>
+                {item.book.description.slice(0, 50)}...
               </div>
-              <div className="w-[9%]">
-                <h1 className="">
-                  ₹ {items.book.price}
-                </h1>
+
+              <div className="w-[9%]">₹ {item.book.price}</div>
+
+              <div className="w-[16%] font-semibold">
+                {item.status === "Order Placed" ? (
+                  <span className="text-green-500">{item.status}</span>
+                ) : item.status === "Cancelled" ? (
+                  <span className="text-red-500">{item.status}</span>
+                ) : (
+                  <span className="text-yellow-500">{item.status}</span>
+                )}
               </div>
-              <div className="w-[16%]">
-                <h1 className="font-semibold text-yellow-500">
-                  {items.status === "Order Placed" ? (
-                    <div className="text-green-500">
-                      {items.status}
-                    </div>
-                  ) : items.status === "Cancelled" ? (
-                    <div className="text-red-500">
-                      {items.status}
-                    </div>
-                  ) : (
-                    <div className="text-yellow-500">
-                      {items.status}
-                    </div>
-                  )}
-                </h1>
-              </div>
+
               <div className="w-none md:w-[5%] hidden md:block">
-                <h1 className="text-sm texr-zinc-400">
-                  COD
-                </h1>
+                <span className="text-sm text-zinc-400">COD</span>
               </div>
             </div>
           ))}

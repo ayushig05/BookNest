@@ -4,10 +4,10 @@ import RecentlyAddedBook from "../components/book/recentlyAddedBook";
 
 const Home = () => {
   return (
-    <div className="text-zinc-800 px-10 py-8">
+    <main className="text-zinc-800 px-4 md:px-10 py-8 space-y-12">
       <Hero />
       <RecentlyAddedBook />
-    </div>
+    </main>
   );
 };
 

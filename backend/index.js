@@ -18,12 +18,12 @@ app.get("/", (req, res) => {
   res.send("Server is ready");
 });
 
-app.use("/api/v1/", user);
-app.use("/api/v1/", book);
-app.use("/api/v1/", favourite);
-app.use("/api/v1/", cart);
-app.use("/api/v1/", order);
+app.use("/api/v1", user);
+app.use("/api/v1", book);
+app.use("/api/v1", favourite);
+app.use("/api/v1", cart);
+app.use("/api/v1", order);
 
 app.listen(port, () => {
-  console.log(`Server at http://localhost:${port}`);
+  console.log(`Server is running at http://localhost:${port}`);
 });

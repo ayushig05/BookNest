@@ -1,12 +1,12 @@
 const express = require("express");
 const User = require("../models/user");
 const Book = require("../models/book");
-const { authenticateToken } = require("./userAuth");
+const { authenticateToken } = require("../middleware/userAuth");
+const authorizeRole = require("../middleware/authorizeRole");
 
 const router = express.Router();
 
-//available only to admin
-router.post("/add-book", authenticateToken, async (req, res) => {
+router.post("/add-book", authenticateToken, authorizeRole(["admin"]), async (req, res) => {
   try {
     const { id } = req.headers;
     const user = await User.findById(id);
